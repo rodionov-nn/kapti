@@ -38,7 +38,6 @@ export default buildConfig({
   }),
   async onInit(payload) {
     if (process.env.PAYLOAD_SEED === 'true') {
-      payload.logger.info('---- SEEDING DATABASE ----')
       await mainSeed(payload)
     }
   },

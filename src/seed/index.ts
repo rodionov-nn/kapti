@@ -1,20 +1,24 @@
+import { Payload } from "payload";
 import { seedAdmin } from "./scripts/admin";
 import { seedCategories } from "./scripts/categories";
 import { seedMedia } from "./scripts/media";
+import { seedProducts } from "./scripts/products";
 
-export const mainSeed = async (payload: any) => {
+export const mainSeed = async (payload: Payload) => {
   try {
-    // Всегда первым делом — админ
+    payload.logger.info('---- SEEDING DATABASE ----')
+
     await seedAdmin(payload);
 
     await seedCategories(payload);
 
-    /* // Затем контент (можно обернуть в условие окружения)
-    if (process.env.NODE_ENV !== 'production') {
-      await seedContent(payload);
-    } */
+    await seedMedia(payload);
+
+    await seedProducts(payload);
+
+    payload.logger.info('✔ Database seeding finished!');
 
   } catch (err) {
-    payload.logger.error(err);
+    payload.logger.error(`✘ Database seeding failed: ${err}`);
   }
 };

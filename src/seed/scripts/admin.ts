@@ -1,5 +1,4 @@
 import { Payload } from "payload";
-import { User } from "@/payload-types";
 
 export const seedAdmin = async (payload: Payload): Promise<void> => {
   const adminEmail = process.env.ADMIN_EMAIL!
