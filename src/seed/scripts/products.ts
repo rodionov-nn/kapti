@@ -46,10 +46,11 @@ export const seedProducts = async (payload: Payload) => {
                     name: item.name,
                     category: categoryRes.docs[0].id,
                     image: mediaRes.docs[0].id,
-                    description: item.description || '',
+                    description: item.description,
                     weight: item.weight,
                     packCount: item.packCount,
                     ingredients: item.ingredients,
+                    dietaryInfo: item.dietaryInfo || '',
                     shelfLife: item.shelfLife,
                     storageConditions: item.storageConditions,
                     nutrition: {
