@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     categories: Category;
     products: Product;
+    pages: Page;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,6 +83,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -174,6 +176,9 @@ export interface Media {
 export interface Category {
   id: number;
   name: string;
+  /**
+   * Только латиница. Генерируется автоматически.
+   */
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -207,6 +212,23 @@ export interface Product {
    * Например: 12 Месяцев
    */
   shelfLife: string;
+  /**
+   * Только латиница. Генерируется автоматически.
+   */
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title?: string | null;
+  /**
+   * Только латиница. Генерируется автоматически.
+   */
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -250,6 +272,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'products';
         value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: number | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -369,6 +395,16 @@ export interface ProductsSelect<T extends boolean = true> {
       };
   storageConditions?: T;
   shelfLife?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;

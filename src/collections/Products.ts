@@ -1,5 +1,5 @@
+import { slugField } from '@/fields/slug'
 import type { CollectionConfig } from 'payload'
-import slugify from 'slugify'
 
 export const Products: CollectionConfig = {
     slug: 'products',
@@ -136,24 +136,6 @@ export const Products: CollectionConfig = {
                 },
             ],
         },
-        {
-            name: 'slug',
-            label: 'URL-адрес (латиница)',
-            type: 'text',
-            unique: true,
-            index: true,
-            admin: { position: 'sidebar' },
-            hooks: {
-                beforeValidate: [
-                    ({ value, data }) => {
-                        const source = value || data?.name;
-                        if (source) {
-                            return slugify(source, { lower: true, strict: true, locale: 'ru' });
-                        }
-                        return value;
-                    },
-                ],
-            },
-        },
+        slugField('name'),
     ],
 }
