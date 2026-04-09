@@ -9,6 +9,9 @@ export const Products: CollectionConfig = {
         group: 'Контент',
         defaultColumns: ['name', 'category', 'slug'],
     },
+    access: {
+        read: () => true,
+    },
     fields: [
         {
             name: 'name',

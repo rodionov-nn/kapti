@@ -8,6 +8,9 @@ export const Categories: CollectionConfig = {
     useAsTitle: 'name',
     group: 'Контент',
   },
+  access: {
+    read: () => true,
+  },
   fields: [
     {
       name: 'name',
