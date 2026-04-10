@@ -44,7 +44,7 @@
 
 ### Frontend
 - **Library**: React 19.2.4
-- **Styling**: CSS modules, SCSS
+- **Styling**: Tailwind CSS 4.2
 - **Package Manager**: pnpm 10.33.0
 
 ### Testing
