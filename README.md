@@ -70,7 +70,7 @@
 
 ```bash
 # Клонируем репозиторий
-git clone <repo-url>
+git clone https://github.com/rodionov-nn/kapti.git
 cd kapti
 
 # Устанавливаем зависимости
