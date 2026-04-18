@@ -12,12 +12,18 @@ export const Categories: CollectionConfig = {
     read: anyone,
     update: authenticated,
   },
+  labels: {
+    singular: 'Категория',
+    plural: 'Категории',
+  },
   admin: {
     useAsTitle: 'title',
+    group: 'Контент',
   },
   fields: [
     {
       name: 'title',
+      label: 'Имя категории',
       type: 'text',
       required: true,
     },

@@ -36,8 +36,13 @@ export const Pages: CollectionConfig<'pages'> = {
     title: true,
     slug: true,
   },
+  labels: {
+    singular: 'Страница',
+    plural: 'Страницы',
+  },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
+    group: 'Контент',
     livePreview: {
       url: ({ data, req }) =>
         generatePreviewPath({
@@ -57,6 +62,7 @@ export const Pages: CollectionConfig<'pages'> = {
   fields: [
     {
       name: 'title',
+      label: 'Название страницы',
       type: 'text',
       required: true,
     },
@@ -71,6 +77,7 @@ export const Pages: CollectionConfig<'pages'> = {
           fields: [
             {
               name: 'layout',
+              label: 'Макет',
               type: 'blocks',
               blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
               required: true,
@@ -79,7 +86,7 @@ export const Pages: CollectionConfig<'pages'> = {
               },
             },
           ],
-          label: 'Content',
+          label: 'Контент',
         },
         {
           name: 'meta',
@@ -112,6 +119,7 @@ export const Pages: CollectionConfig<'pages'> = {
     },
     {
       name: 'publishedAt',
+      label: 'Опубликованно в',
       type: 'date',
       admin: {
         position: 'sidebar',

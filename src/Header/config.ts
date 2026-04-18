@@ -8,9 +8,14 @@ export const Header: GlobalConfig = {
   access: {
     read: () => true,
   },
+  label: 'Шапка сайта',
+  admin: {
+    group: 'Навигация',
+  },
   fields: [
     {
       name: 'navItems',
+      label: 'Элементы навигации',
       type: 'array',
       fields: [
         link({

@@ -11,8 +11,13 @@ export const Users: CollectionConfig = {
     read: authenticated,
     update: authenticated,
   },
+  labels: {
+    singular: 'Пользователь',
+    plural: 'Пользователи',
+  },
   admin: {
     defaultColumns: ['name', 'email'],
+    group: 'Администрирование',
     useAsTitle: 'name',
   },
   auth: true,

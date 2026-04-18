@@ -8,6 +8,10 @@ export const Footer: GlobalConfig = {
   access: {
     read: () => true,
   },
+  label: 'Подвал сайта',
+  admin: {
+    group: 'Навигация',
+  },
   fields: [
     {
       name: 'navItems',

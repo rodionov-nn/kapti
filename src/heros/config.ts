@@ -17,7 +17,7 @@ export const hero: Field = {
       name: 'type',
       type: 'select',
       defaultValue: 'lowImpact',
-      label: 'Type',
+      label: 'Тип',
       options: [
         {
           label: 'None',

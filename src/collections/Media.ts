@@ -23,14 +23,35 @@ export const Media: CollectionConfig = {
     read: anyone,
     update: authenticated,
   },
+  labels: {
+    singular: 'Медиа',
+    plural: 'Медиа',
+  },
   fields: [
     {
       name: 'alt',
       type: 'text',
-      //required: true,
+      admin: {
+        description:
+          'Краткое описание того, что изображено на картинке. Важно для доступности и SEO.',
+      },
+      required: true,
+      hooks: {
+        beforeValidate: [
+          ({ data, operation }) => {
+            if (operation === 'create' || operation === 'update') {
+              if (!data?.alt && data?.filename) {
+                return data.filename.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ')
+              }
+            }
+            return data?.alt
+          },
+        ],
+      },
     },
     {
       name: 'caption',
+      label: 'Подпись',
       type: 'richText',
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
