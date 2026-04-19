@@ -21,6 +21,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { formatSlug } from '@/utilities/formatSlug'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -128,13 +129,7 @@ export const Pages: CollectionConfig<'pages'> = {
     },
     slugField({
       useAsSlug: 'title',
-      slugify: ({ valueToSlugify }) =>
-        slugify(valueToSlugify, {
-          lower: true,
-          strict: true,
-          trim: true,
-          locale: 'ru',
-        }),
+      slugify: ({ valueToSlugify }) => formatSlug(valueToSlugify),
     }),
   ],
   hooks: {

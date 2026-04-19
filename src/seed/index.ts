@@ -3,6 +3,7 @@ import { seedAdmin } from "./scripts/admin";
 import { seedCategories } from "./scripts/categories";
 import { seedMedia } from "./scripts/media";
 import { seedProducts } from "./scripts/products";
+import { seedGlobals } from "./scripts/globals";
 
 export const mainSeed = async (payload: Payload) => {
   try {
@@ -15,6 +16,8 @@ export const mainSeed = async (payload: Payload) => {
     await seedMedia(payload);
 
     await seedProducts(payload);
+
+    await seedGlobals(payload);
 
     payload.logger.info('✔ Database seeding finished!');
 

@@ -23,5 +23,5 @@ export const seedAdmin = async (payload: Payload): Promise<void> => {
       password: adminPassword,
       name: process.env.ADMIN_NAME || 'Admin',
     },
-  })
+  } as any)
 }

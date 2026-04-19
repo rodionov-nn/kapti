@@ -4,6 +4,7 @@ import { anyone } from '../../access/anyone'
 import { authenticated } from '../../access/authenticated'
 import { slugField } from 'payload'
 import slugify from 'slugify'
+import { formatSlug } from '@/utilities/formatSlug'
 
 export const Products: CollectionConfig = {
   slug: 'products',
@@ -149,14 +150,8 @@ export const Products: CollectionConfig = {
       ],
     },
     slugField({
-      useAsSlug: 'name',
-      slugify: ({ valueToSlugify }) =>
-        slugify(valueToSlugify, {
-          lower: true,
-          strict: true,
-          trim: true,
-          locale: 'ru',
-        }),
+      useAsSlug: 'title',
+      slugify: ({ valueToSlugify }) => formatSlug(valueToSlugify),
     }),
   ],
 }

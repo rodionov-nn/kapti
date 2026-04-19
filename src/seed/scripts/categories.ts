@@ -19,7 +19,7 @@ export const seedCategories = async (payload: Payload): Promise<void> => {
                     data: {
                         name: categoryName,
                     },
-                });
+                } as any);
                 payload.logger.info(`✔ Created category: ${categoryName}`);
             } catch (error) {
                 const message = error instanceof Error ? error.message : "Unknown error";

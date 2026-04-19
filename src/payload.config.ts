@@ -4,6 +4,7 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { ru } from '@payloadcms/translations/languages/ru'
 import { fileURLToPath } from 'url'
+import { mainSeed } from './seed'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -67,6 +68,11 @@ export default buildConfig({
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
+  async onInit(payload) {
+    if (process.env.PAYLOAD_SEED === 'true') {
+      await mainSeed(payload)
+    }
   },
   jobs: {
     access: {

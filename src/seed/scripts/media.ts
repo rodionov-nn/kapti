@@ -1,7 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 import { Payload } from 'payload';
-import mime from 'mime-types';
 
 export const seedMedia = async (payload: Payload) => {
     const mediaDir = path.resolve(process.cwd(), 'src/seed/media');
@@ -21,9 +20,10 @@ export const seedMedia = async (payload: Payload) => {
     payload.logger.info(`Found ${imageFiles.length} images to seed.`);
 
     for (const fileName of imageFiles) {
+        const altText = fileName.split('.')[0];
         const existing = await payload.find({
             collection: 'media',
-            where: { filename: { equals: fileName } },
+            where: { alt: { equals: altText } },
         });
 
         if (existing.docs.length > 0) {
@@ -31,8 +31,6 @@ export const seedMedia = async (payload: Payload) => {
         }
 
         const filePath = path.join(mediaDir, fileName);
-        const fileBuffer = fs.readFileSync(filePath);
-        const contentType = mime.lookup(filePath) || 'application/octet-stream';
 
         try {
             await payload.create({
@@ -40,12 +38,7 @@ export const seedMedia = async (payload: Payload) => {
                 data: {
                     alt: fileName.split('.')[0],
                 },
-                file: {
-                    data: fileBuffer,
-                    name: fileName,
-                    mimetype: contentType,
-                    size: fileBuffer.length,
-                },
+                filePath: filePath,
             });
             payload.logger.info(`✔ Uploaded: ${fileName}`);
         } catch (error: any) {
