@@ -12,20 +12,37 @@ export async function Footer() {
   const logoData = footerData?.logo && typeof footerData.logo === 'object' ? footerData.logo : null
 
   return (
-    <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
-      <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
-        <Link className="flex items-center" href="/">
-          <Logo logoData={logoData} />
-        </Link>
+    <footer className="mt-auto bg-background/50 backdrop-blur-md">
+      <div className="mx-auto max-w-[95%] border-t border-foreground py-12 flex flex-col gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+          {/* Logo */}
+          <div className="h-24 flex items-center">
+            <Link href="/" className="block">
+              <Logo logoData={logoData} className="h-24 w-auto max-h-none" />
+            </Link>
+          </div>
 
-        <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
-          <nav className="flex flex-col md:flex-row gap-4">
-            {navItems.map(({ link }, i) => {
-              return <CMSLink className="text-white" key={i} {...link} />
-            })}
-          </nav>
+          {/* Nav */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 lg:gap-16">
+            <nav className="flex flex-col items-center md:items-start space-y-2 font-semibold">
+              {navItems.map(({ link }, i) => {
+                return (
+                  <CMSLink
+                    key={i}
+                    {...link}
+                    className="hover:underline hover:text-accent transition-colors"
+                  />
+                )
+              })}
+            </nav>
+          </div>
         </div>
       </div>
+
+      {/* Copyright */}
+      <p className="text-center font-semibold pb-8 text-sm opacity-80">
+        &copy; {new Date().getFullYear()} kapti. Все права защищены.
+      </p>
     </footer>
   )
 }

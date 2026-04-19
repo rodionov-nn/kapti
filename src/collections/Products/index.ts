@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { anyone } from '../../access/anyone'
 import { authenticated } from '../../access/authenticated'
 import { slugField } from 'payload'
+import slugify from 'slugify'
 
 export const Products: CollectionConfig = {
   slug: 'products',
@@ -148,7 +149,14 @@ export const Products: CollectionConfig = {
       ],
     },
     slugField({
-      position: undefined,
+      useAsSlug: 'name',
+      slugify: ({ valueToSlugify }) =>
+        slugify(valueToSlugify, {
+          lower: true,
+          strict: true,
+          trim: true,
+          locale: 'ru',
+        }),
     }),
   ],
 }

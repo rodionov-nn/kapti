@@ -12,6 +12,7 @@ import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
+import slugify from 'slugify'
 
 import {
   MetaDescriptionField,
@@ -125,7 +126,16 @@ export const Pages: CollectionConfig<'pages'> = {
         position: 'sidebar',
       },
     },
-    slugField(),
+    slugField({
+      useAsSlug: 'title',
+      slugify: ({ valueToSlugify }) =>
+        slugify(valueToSlugify, {
+          lower: true,
+          strict: true,
+          trim: true,
+          locale: 'ru',
+        }),
+    }),
   ],
   hooks: {
     afterChange: [revalidatePage],
