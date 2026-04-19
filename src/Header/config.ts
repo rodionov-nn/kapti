@@ -14,6 +14,13 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      name: 'logo',
+      label: 'Логотип',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+    },
+    {
       name: 'navItems',
       label: 'Элементы навигации',
       type: 'array',

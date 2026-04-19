@@ -14,6 +14,13 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
+      name: 'logo',
+      label: 'Логотип',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [

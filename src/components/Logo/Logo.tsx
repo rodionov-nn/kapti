@@ -1,29 +1,34 @@
-import clsx from 'clsx'
 import React from 'react'
+import type { Media as MediaType } from '@/payload-types'
+
+import { Media } from '@/components/Media'
+import { cn } from '@/utilities/ui'
 
 interface Props {
   className?: string
+  logoData?: MediaType | string | null
   loading?: 'lazy' | 'eager'
   priority?: 'auto' | 'high' | 'low'
 }
 
 export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
+  const { className, loading: loadingFromProps, logoData, priority: priorityFromProps } = props
 
   const loading = loadingFromProps || 'lazy'
   const priority = priorityFromProps || 'low'
 
-  return (
-    /* eslint-disable @next/next/no-img-element */
-    <img
-      alt="Payload Logo"
-      width={193}
-      height={34}
-      loading={loading}
-      fetchPriority={priority}
-      decoding="async"
-      className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
-      src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-logo-light.svg"
-    />
-  )
+  if (typeof logoData === 'object' && logoData?.url) {
+    return (
+      <Media
+        htmlElement={null}
+        resource={logoData}
+        loading={loading}
+        priority={priority === 'high'}
+        pictureClassName="flex"
+        imgClassName={cn('max-h-[50px] w-auto object-contain', className)}
+      />
+    )
+  }
+
+  return <span className={cn('text-xl font-semibold leading-none', className)}>Kapti</span>
 }
