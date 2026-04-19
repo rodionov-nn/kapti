@@ -12,23 +12,24 @@ import { link } from '@/fields/link'
 const columnFields: Field[] = [
   {
     name: 'size',
+    label: 'Размер',
     type: 'select',
     defaultValue: 'oneThird',
     options: [
       {
-        label: 'One Third',
+        label: 'Одна Треть',
         value: 'oneThird',
       },
       {
-        label: 'Half',
+        label: 'Половина',
         value: 'half',
       },
       {
-        label: 'Two Thirds',
+        label: 'Две Трети',
         value: 'twoThirds',
       },
       {
-        label: 'Full',
+        label: 'Полный',
         value: 'full',
       },
     ],
@@ -50,6 +51,7 @@ const columnFields: Field[] = [
   },
   {
     name: 'enableLink',
+    label: 'Включить Ссылку',
     type: 'checkbox',
   },
   link({
@@ -65,10 +67,15 @@ const columnFields: Field[] = [
 
 export const Content: Block = {
   slug: 'content',
+  labels: {
+    singular: 'Контент',
+    plural: 'Контент',
+  },
   interfaceName: 'ContentBlock',
   fields: [
     {
       name: 'columns',
+      label: 'Столбцы',
       type: 'array',
       admin: {
         initCollapsed: true,

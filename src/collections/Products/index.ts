@@ -150,7 +150,7 @@ export const Products: CollectionConfig = {
       ],
     },
     slugField({
-      useAsSlug: 'title',
+      useAsSlug: 'name',
       slugify: ({ valueToSlugify }) => formatSlug(valueToSlugify),
     }),
   ],

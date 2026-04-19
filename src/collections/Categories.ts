@@ -30,7 +30,7 @@ export const Categories: CollectionConfig = {
       required: true,
     },
     slugField({
-      useAsSlug: 'title',
+      useAsSlug: 'name',
       slugify: ({ valueToSlugify }) => formatSlug(valueToSlugify),
     }),
   ],
