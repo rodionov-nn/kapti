@@ -201,7 +201,42 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | FormBlock
+    | {
+        title?: string | null;
+        alignment: 'contentLeft' | 'mediaLeft';
+        richText: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        media: number | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'mediaContent';
+      }
+    | {
+        spacing?: ('small' | 'medium' | 'large') | null;
+        color?: ('default' | 'muted') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'separator';
+      }
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -1056,6 +1091,24 @@ export interface PagesSelect<T extends boolean = true> {
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        mediaContent?:
+          | T
+          | {
+              title?: T;
+              alignment?: T;
+              richText?: T;
+              media?: T;
+              id?: T;
+              blockName?: T;
+            };
+        separator?:
+          | T
+          | {
+              spacing?: T;
+              color?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T

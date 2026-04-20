@@ -21,6 +21,8 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { formatSlug } from '@/utilities/formatSlug'
+import { MediaContent } from '@/blocks/MediaContent/config'
+import { Separator } from '@/blocks/Separator/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -80,7 +82,7 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               label: 'Макет',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, FormBlock],
+              blocks: [CallToAction, Content, MediaBlock, FormBlock, MediaContent, Separator],
               required: true,
               admin: {
                 initCollapsed: true,
