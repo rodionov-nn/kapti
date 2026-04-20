@@ -21,19 +21,14 @@ export const MediaContentBlock: React.FC<Props> = ({ title, alignment, richText,
         {/* 2. БЛОК С ТЕКСТОМ */}
         <div
           className={`
-          ${isMediaLeft ? 'lg:order-2' : 'lg:order-1'} 
+          ${isMediaLeft ? 'lg:order-2' : 'lg:order-1'}
           prose prose-slate max-w-none
-          [&_p]:leading-relaxed [&_p]:text-slate-700
+          [&_p]:leading-relaxed [&_p]:text-foreground sm:[&_p]:text-left md:[&_p]:text-justify
           [&_h3]:text-5xl [&_h3]:font-black [&_h3]:mb-4
           [&_code]:font-bold [&_code]:text-4xl md:[&_code]:text-6xl [&_code]:font-sans [&_code]:text-foreground [&_code]:bg-transparent [&_code]:p-0
           [&_code::before]:content-none [&_code::after]:content-none
         `}
         >
-          {/* Заметка по стилизации: 
-            Чтобы сделать текст крупным внутри строки (inline), выделите его в админке 
-            и нажмите кнопку "Code" (иконка < >). 
-            Он получит стили крупного акцентного текста (как слово "kapti").
-          */}
           <RichText data={richText} />
         </div>
 
