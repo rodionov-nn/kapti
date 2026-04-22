@@ -1,10 +1,9 @@
 import type { Metadata } from 'next/types'
 
-import { PageRange } from '@/components/PageRange'
-import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import PageClient from './page.client'
+import Link from 'next/link'
+import { Media } from '@/components/Media'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -12,43 +11,57 @@ export const revalidate = 600
 export default async function Page() {
   const payload = await getPayload({ config: configPromise })
 
-  const products = await payload.find({
-    collection: 'products',
-    depth: 1,
-    limit: 12,
-    overrideAccess: false,
-    select: {
-      title: true,
-      slug: true,
-      categories: true,
-      meta: true,
-    },
-  })
+  const [categoriesRes, productsRes] = await Promise.all([
+    payload.find({
+      collection: 'categories',
+      limit: 100,
+      sort: 'id',
+    }),
+    payload.find({
+      collection: 'products',
+      limit: 200,
+      depth: 1,
+    }),
+  ])
+
+  const categories = categoriesRes.docs
+  const allProducts = productsRes.docs
 
   return (
-    <div className="pt-24 pb-24">
-      <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Продукты</h1>
-        </div>
-      </div>
+    <main className="pt-24 pb-24">
+      <section className="container ">
+        <h1>Наши продукты</h1>
+        {categories.map((category) => {
+          // Фильтруем продукты, которые принадлежат текущей категории
+          const categoryProducts = allProducts.filter((product) => {
+            const pCat = product.category
+            // Проверка на объект (depth) или ID
+            return typeof pCat === 'object' ? pCat.id === category.id : pCat === category.id
+          })
 
-      <div className="container mb-8">
-        <PageRange
-          collection="posts"
-          currentPage={products.page}
-          limit={12}
-          totalDocs={products.totalDocs}
-        />
-      </div>
+          return (
+            <section key={category.id} id={category.slug} className="mb-20 scroll-mt-28">
+              <div className="border-b mb-8 pb-4">
+                <h2 className="text-3xl font-bold">{category.name}</h2>
+                {/* Здесь можно вывести описание категории, если добавишь его в схему */}
+              </div>
 
-      <div className="container">
-        {products.totalPages > 1 && products.page && (
-          <Pagination page={products.page} totalPages={products.totalPages} />
-        )}
-      </div>
-    </div>
+              {categoryProducts.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {categoryProducts.map((product) => (
+                    <Link key={product.id} href={`/products/${category.slug}/${product.slug}`}>
+                      <Media resource={product.image} priority imgClassName="object-cover" />
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 italic">В этой категории пока нет товаров.</p>
+              )}
+            </section>
+          )
+        })}
+      </section>
+    </main>
   )
 }
 
