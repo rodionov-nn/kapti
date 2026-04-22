@@ -29,7 +29,7 @@ export default async function Page() {
 
   return (
     <main className="pt-24 pb-24">
-      <section className="container ">
+      <section className="container text-center">
         <h1>Наши продукты</h1>
         {categories.map((category) => {
           // Фильтруем продукты, которые принадлежат текущей категории
@@ -40,17 +40,20 @@ export default async function Page() {
           })
 
           return (
-            <section key={category.id} id={category.slug} className="mb-20 scroll-mt-28">
-              <div className="border-b mb-8 pb-4">
-                <h2 className="text-3xl font-bold">{category.name}</h2>
-                {/* Здесь можно вывести описание категории, если добавишь его в схему */}
+            <section key={category.id} id={category.slug} className="mb-20 scroll-mt-28 px-28">
+              <div className="mb-8 pb-4">
+                <h2>{category.name}</h2>
               </div>
 
               {categoryProducts.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {categoryProducts.map((product) => (
-                    <Link key={product.id} href={`/products/${category.slug}/${product.slug}`}>
-                      <Media resource={product.image} priority imgClassName="object-cover" />
+                    <Link
+                      key={product.id}
+                      href={`/products/${category.slug}/${product.slug}`}
+                      className="relative aspect-2/1 w-full select-none hover:scale-105 hover:rotate-5 cursor-pointer"
+                    >
+                      <Media resource={product.image} priority fill imgClassName="object-cover" />
                     </Link>
                   ))}
                 </div>
@@ -67,6 +70,6 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Posts`,
+    title: `Каталог продукции kapti - Батончики, Щербеты, Козинаки`,
   }
 }
