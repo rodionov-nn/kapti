@@ -30,9 +30,19 @@ export const FormBlock: Block = {
         condition: (_, { enableIntro }) => Boolean(enableIntro),
       },
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
+        features: ({ defaultFeatures }) => {
+          const disabledFeatures = [
+            'orderedList',
+            'unorderedList',
+            'checklist',
+            'blockquote',
+            'relationship',
+            'horizontalRule',
+            'upload',
+          ]
+
           return [
-            ...rootFeatures,
+            ...defaultFeatures.filter((feature) => !disabledFeatures.includes(feature.key)),
             HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),

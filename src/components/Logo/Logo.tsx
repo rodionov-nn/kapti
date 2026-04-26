@@ -25,7 +25,7 @@ export const Logo = (props: Props) => {
         loading={loading}
         priority={priority === 'high'}
         pictureClassName="flex"
-        imgClassName={cn('max-h-[50px] w-auto object-contain', className)}
+        imgClassName={cn('max-h-[50px] w-auto object-contain select-none', className)}
       />
     )
   }

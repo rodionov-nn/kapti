@@ -1625,6 +1625,59 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  contacts?:
+    | {
+        icon:
+          | 'phone'
+          | 'mail'
+          | 'map-pin'
+          | 'instagram'
+          | 'facebook'
+          | 'twitter'
+          | 'youtube'
+          | 'linkedin'
+          | 'send'
+          | 'whatsapp'
+          | 'vk';
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  socialLinks?:
+    | {
+        icon:
+          | 'phone'
+          | 'mail'
+          | 'map-pin'
+          | 'instagram'
+          | 'facebook'
+          | 'twitter'
+          | 'youtube'
+          | 'linkedin'
+          | 'send'
+          | 'whatsapp'
+          | 'vk';
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1669,6 +1722,35 @@ export interface FooterSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+            };
+        id?: T;
+      };
+  contacts?:
+    | T
+    | {
+        icon?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        icon?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
             };
         id?: T;
       };

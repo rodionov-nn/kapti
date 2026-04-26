@@ -20,19 +20,19 @@ export const hero: Field = {
       label: 'Тип',
       options: [
         {
-          label: 'None',
+          label: 'Скрыть',
           value: 'none',
         },
         {
-          label: 'High Impact',
+          label: 'Сильный акцент',
           value: 'highImpact',
         },
         {
-          label: 'Medium Impact',
+          label: 'Средний акцент',
           value: 'mediumImpact',
         },
         {
-          label: 'Low Impact',
+          label: 'Минимальный акцент',
           value: 'lowImpact',
         },
       ],
@@ -41,17 +41,27 @@ export const hero: Field = {
     {
       name: 'richText',
       type: 'richText',
+      label: false,
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
+        features: ({ defaultFeatures }) => {
+          const disabledFeatures = [
+            'orderedList',
+            'unorderedList',
+            'checklist',
+            'blockquote',
+            'relationship',
+            'horizontalRule',
+            'upload',
+          ]
+
           return [
-            ...rootFeatures,
+            ...defaultFeatures.filter((feature) => !disabledFeatures.includes(feature.key)),
             HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
           ]
         },
       }),
-      label: false,
     },
     linkGroup({
       overrides: {
@@ -60,6 +70,7 @@ export const hero: Field = {
     }),
     {
       name: 'media',
+      label: 'Изображение',
       type: 'upload',
       admin: {
         condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),

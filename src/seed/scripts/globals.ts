@@ -72,6 +72,55 @@ export const seedGlobals = async (payload: Payload): Promise<void> => {
             },
           },
         ],
+        contacts: [
+          {
+            icon: 'phone',
+            link: {
+              type: 'custom',
+              url: 'tel:+77773717749',
+              label: '+7 (777) 371-77-49',
+              newTab: false,
+            },
+          },
+          {
+            icon: 'mail',
+            link: {
+              type: 'custom',
+              url: 'mailto:k.kapti@mail.ru',
+              label: 'k.kapti@mail.ru',
+              newTab: false,
+            },
+          },
+        ],
+        socialLinks: [
+          {
+            icon: 'whatsapp',
+            link: {
+              type: 'custom',
+              url: 'https://wa.me/77773717749',
+              label: 'WhatsApp',
+              newTab: true,
+            },
+          },
+          {
+            icon: 'youtube',
+            link: {
+              type: 'custom',
+              url: 'https://www.youtube.com/@kaptikz',
+              label: 'YouTube',
+              newTab: true,
+            },
+          },
+          {
+            icon: 'instagram',
+            link: {
+              type: 'custom',
+              url: 'https://www.instagram.com/kapti__kz',
+              label: 'Instagram',
+              newTab: true,
+            },
+          },
+        ],
       },
     })
     payload.logger.info('✔ Footer seeded')
