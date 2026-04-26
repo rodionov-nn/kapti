@@ -39,9 +39,10 @@ export default async function Page() {
           })
 
           return (
-            <section key={category.id} id={category.slug} className="mb-20 scroll-mt-28 px-28">
+            <section key={category.id} id={category.slug} className="mb-20 scroll-mt-28">
               <div className="mb-8 pb-4">
                 <h2>{category.name}</h2>
+                {category.description && <p className="mt-4 text-xl">{category.description}</p>}
               </div>
 
               {categoryProducts.length > 0 ? (

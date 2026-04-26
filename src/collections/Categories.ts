@@ -29,6 +29,11 @@ export const Categories: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'description',
+      label: 'Описание',
+      type: 'text',
+    },
     slugField({
       useAsSlug: 'name',
       slugify: ({ valueToSlugify }) => formatSlug(valueToSlugify),

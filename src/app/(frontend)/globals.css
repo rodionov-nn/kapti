@@ -1,11 +1,11 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffefde; /* #fff8f1 | #ffefde */
   --background-2: #fed16d;
   --foreground: #2d1c12;
-  --foreground-2: #5F564F;
-  --accent: #C94C4C;
+  --foreground-2: #5f564f;
+  --accent: #c94c4c;
 }
 
 @theme {
@@ -54,37 +54,12 @@ body {
   .container {
     width: 100%;
     margin-inline: auto;
-    padding-inline: 1rem;
-  }
-
-  @variant sm {
-    .container {
-      max-width: var(--breakpoint-sm);
-    }
-  }
-
-  @variant md {
-    .container {
-      max-width: var(--breakpoint-md);
-      padding-inline: 2rem;
-    }
-  }
-
-  @variant lg {
-    .container {
-      max-width: var(--breakpoint-lg);
-    }
+    max-width: 90%;
   }
 
   @variant xl {
     .container {
-      max-width: var(--breakpoint-xl);
-    }
-  }
-
-  @variant 2xl {
-    .container {
-      max-width: var(--breakpoint-2xl);
+      max-width: 80%;
     }
   }
 }

@@ -4,11 +4,11 @@ import categoriesData from "../data/categories.json";
 export const seedCategories = async (payload: Payload): Promise<void> => {
     payload.logger.info("Syncing categories...");
 
-    for (const categoryName of categoriesData) {
-        const { totalDocs } = await payload.find({
+    for (const category of categoriesData) {
+        const { totalDocs, docs } = await payload.find({
             collection: "categories",
             where: {
-                name: { equals: categoryName },
+                name: { equals: category.name },
             },
         });
 
@@ -17,13 +17,32 @@ export const seedCategories = async (payload: Payload): Promise<void> => {
                 await payload.create({
                     collection: "categories",
                     data: {
-                        name: categoryName,
+                        name: category.name,
+                        description: category.description,
                     },
                 } as any);
-                payload.logger.info(`✔ Created category: ${categoryName}`);
+                payload.logger.info(`✔ Created category: ${category.name}`);
             } catch (error) {
                 const message = error instanceof Error ? error.message : "Unknown error";
-                payload.logger.error(`✘ Failed to create ${categoryName}: ${message}`);
+                payload.logger.error(`✘ Failed to create ${category.name}: ${message}`);
+            }
+        } else {
+            // Update existing category with description
+            const existingCat = docs[0];
+            if (existingCat.description !== category.description) {
+                try {
+                    await payload.update({
+                        collection: "categories",
+                        id: existingCat.id,
+                        data: {
+                            description: category.description,
+                        },
+                    } as any);
+                    payload.logger.info(`✔ Updated category: ${category.name} with description`);
+                } catch (error) {
+                    const message = error instanceof Error ? error.message : "Unknown error";
+                    payload.logger.error(`✘ Failed to update ${category.name}: ${message}`);
+                }
             }
         }
     }

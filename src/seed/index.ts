@@ -4,6 +4,7 @@ import { seedCategories } from "./scripts/categories";
 import { seedMedia } from "./scripts/media";
 import { seedProducts } from "./scripts/products";
 import { seedGlobals } from "./scripts/globals";
+import { seedPages } from "./scripts/pages";
 
 export const mainSeed = async (payload: Payload) => {
   try {
@@ -18,6 +19,8 @@ export const mainSeed = async (payload: Payload) => {
     await seedProducts(payload);
 
     await seedGlobals(payload);
+
+    await seedPages(payload);
 
     payload.logger.info('✔ Database seeding finished!');
 

@@ -55,9 +55,12 @@ export default async function CategoryPage({ params }: PageProps) {
     <main className="py-24">
       <section className="container">
         <h1 className="text-center mb-8">{category.name}</h1>
+        {category.description && (
+          <p className="text-center text-xl mb-12 -mt-4">{category.description}</p>
+        )}
 
         {products.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-28">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {products.map((product) => (
               <Link
                 key={product.id}
