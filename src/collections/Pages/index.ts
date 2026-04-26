@@ -23,6 +23,7 @@ import {
 import { formatSlug } from '@/utilities/formatSlug'
 import { MediaContent } from '@/blocks/MediaContent/config'
 import { Separator } from '@/blocks/Separator/config'
+import { CategoriesSelection } from '@/blocks/CategoriesSelection/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -82,7 +83,15 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               label: 'Макет',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, FormBlock, MediaContent, Separator],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                FormBlock,
+                MediaContent,
+                Separator,
+                CategoriesSelection,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

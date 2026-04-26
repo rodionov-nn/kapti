@@ -77,7 +77,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
       label: 'Выберите документ',
-      relationTo: ['pages', 'posts'],
+      relationTo: ['pages'],
       required: true,
     },
     {

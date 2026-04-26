@@ -11,8 +11,8 @@ import {
 export const MediaContent: Block = {
   slug: 'mediaContent',
   labels: {
-    singular: 'Блок фото + текст',
-    plural: 'Блоки фото + текст',
+    singular: 'Фото + текст',
+    plural: 'Фото + текст',
   },
   fields: [
     {

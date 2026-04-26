@@ -32,10 +32,9 @@ export default async function Page() {
       <section className="container text-center">
         <h1>Наши продукты</h1>
         {categories.map((category) => {
-          // Фильтруем продукты, которые принадлежат текущей категории
           const categoryProducts = allProducts.filter((product) => {
             const pCat = product.category
-            // Проверка на объект (depth) или ID
+            if (!pCat) return false
             return typeof pCat === 'object' ? pCat.id === category.id : pCat === category.id
           })
 

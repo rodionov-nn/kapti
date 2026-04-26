@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
+import sharp from 'sharp'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,6 +27,9 @@ export const Media: CollectionConfig = {
   labels: {
     singular: 'Медиа',
     plural: 'Медиа',
+  },
+  admin: {
+    defaultColumns: ['filename', 'alt', 'caption'],
   },
   fields: [
     {
@@ -50,6 +54,14 @@ export const Media: CollectionConfig = {
       },
     },
     {
+      name: 'blurDataURL',
+      type: 'text',
+      admin: {
+        readOnly: true,
+        hidden: true,
+      },
+    },
+    {
       name: 'caption',
       label: 'Подпись',
       type: 'richText',
@@ -60,6 +72,31 @@ export const Media: CollectionConfig = {
       }),
     },
   ],
+  hooks: {
+    beforeChange: [
+      async ({ data, req, operation }) => {
+        if (operation === 'create' || operation === 'update') {
+          if (req.file && req.file.data) {
+            try {
+              const base64 = await sharp(req.file.data)
+                .resize(10)
+                .blur()
+                .toBuffer()
+                .then((data) => `data:image/png;base64,${data.toString('base64')}`)
+
+              return {
+                ...data,
+                blurDataURL: base64,
+              }
+            } catch (err) {
+              console.error('Ошибка генерации blurDataURL:', err)
+            }
+          }
+        }
+        return data
+      },
+    ],
+  },
   upload: {
     // Upload to the public/media directory in Next.js making them publicly accessible even outside of Payload
     staticDir: path.resolve(dirname, '../../public/media'),

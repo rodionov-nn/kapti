@@ -23,7 +23,7 @@ export const MediaContentBlock: React.FC<Props> = ({ title, alignment, richText,
           className={`
           ${isMediaLeft ? 'lg:order-2' : 'lg:order-1'}
           prose prose-slate max-w-none
-          [&_p]:leading-relaxed [&_p]:text-foreground sm:[&_p]:text-left md:[&_p]:text-justify
+          [&_p]:leading-relaxed [&_p]:text-foreground-2 sm:[&_p]:text-left md:[&_p]:text-justify
           [&_h3]:text-5xl [&_h3]:font-black [&_h3]:mb-4
           [&_code]:font-bold [&_code]:text-4xl md:[&_code]:text-6xl [&_code]:font-sans [&_code]:text-foreground [&_code]:bg-transparent [&_code]:p-0
           [&_code::before]:content-none [&_code::after]:content-none

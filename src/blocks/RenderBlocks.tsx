@@ -8,6 +8,7 @@ import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MediaContentBlock } from '@/blocks/MediaContent/Component'
 import { SeparatorBlock } from '@/blocks/Separator/Component'
+import CategoriesSelectionBlock from './CategoriesSelection/Component'
 
 const blockComponents = {
   content: ContentBlock,
@@ -16,6 +17,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   mediaContent: MediaContentBlock,
   separator: SeparatorBlock,
+  categoriesSelection: CategoriesSelectionBlock,
 }
 
 export const RenderBlocks: React.FC<{
@@ -37,7 +39,6 @@ export const RenderBlocks: React.FC<{
             if (Block) {
               return (
                 <div className="my-16" key={index}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>
               )
