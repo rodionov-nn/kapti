@@ -47,14 +47,14 @@ export const CategoryLink = ({ slug, products, className }: CategoryLinkProps) =
     <Link
       href={`/products/${slug}`}
       className={cn(
-        'relative inline-block cursor-pointer select-none w-full max-w-[440px] aspect-[11/5] overflow-clip hover:scale-105 group',
+        'relative inline-block cursor-pointer select-none w-full max-w-[440px] aspect-[11/5] overflow-clip hover:scale-105 transition-transform group',
         className,
       )}
     >
       {products.map((product: any, i: number) => (
         <div
           key={product.id || i}
-          className="absolute top-1/2 left-1/2 transition-transform duration-300 ease-in-out"
+          className="absolute top-1/2 left-1/2"
           style={{
             transformOrigin: 'center bottom',
             transform: `translate(calc(${offsetsX[i]}%), calc(-50% + ${offsetsY[i]}%)) rotate(${rotations[i]}deg)`,
