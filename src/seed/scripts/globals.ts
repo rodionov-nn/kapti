@@ -27,15 +27,7 @@ export const seedGlobals = async (payload: Payload): Promise<void> => {
             link: {
               type: 'custom',
               url: '/products',
-              label: 'Каталог',
-              newTab: false,
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              url: '/contacts',
-              label: 'Контакты',
+              label: 'Продукция',
               newTab: false,
             },
           },
@@ -58,16 +50,16 @@ export const seedGlobals = async (payload: Payload): Promise<void> => {
           {
             link: {
               type: 'custom',
-              url: '/products',
-              label: 'Продукция',
+              url: '/',
+              label: 'Главная',
               newTab: false,
             },
           },
           {
             link: {
               type: 'custom',
-              url: '/contacts',
-              label: 'Контакты',
+              url: '/products',
+              label: 'Продукция',
               newTab: false,
             },
           },

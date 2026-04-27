@@ -30,12 +30,7 @@ const iconMap: Record<string, React.ElementType> = {
   vk: IoLogoVk,
 }
 
-export const ContactBlock: React.FC<ContactBlockProps> = ({
-  title,
-  contacts,
-  socialLinks,
-  recipientEmail,
-}) => {
+export const ContactBlock: React.FC<ContactBlockProps> = ({ title, contacts, recipientEmail }) => {
   return (
     <section className="container flex flex-col items-center justify-center gap-8 lg:gap-16 py-8 lg:py-16">
       {title && <h1 id="products">{title}</h1>}
@@ -50,23 +45,6 @@ export const ContactBlock: React.FC<ContactBlockProps> = ({
                     {IconComponent && <IconComponent className="w-6 h-6 shrink-0 text-accent" />}
                     <CMSLink {...link} className="hover:text-accent transition-colors" />
                   </div>
-                )
-              })}
-            </div>
-          )}
-
-          {socialLinks && socialLinks.length > 0 && (
-            <div className="flex flex-wrap gap-4 pt-4">
-              {socialLinks.map(({ icon, link }, i) => {
-                const IconComponent = icon ? iconMap[icon] : null
-                return (
-                  <CMSLink
-                    key={i}
-                    {...link}
-                    className="hover:text-accent transition-colors flex items-center justify-center bg-foreground/5 hover:bg-foreground/10 p-3 rounded-full w-12 h-12"
-                  >
-                    {IconComponent && <IconComponent className="w-6 h-6" />}
-                  </CMSLink>
                 )
               })}
             </div>

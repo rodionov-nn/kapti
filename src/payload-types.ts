@@ -542,32 +542,6 @@ export interface ContactBlock {
         id?: string | null;
       }[]
     | null;
-  socialLinks?:
-    | {
-        icon:
-          | 'phone'
-          | 'mail'
-          | 'map-pin'
-          | 'instagram'
-          | 'facebook'
-          | 'twitter'
-          | 'youtube'
-          | 'linkedin'
-          | 'send'
-          | 'whatsapp'
-          | 'vk';
-        link?: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: number | Page;
-          } | null;
-          url?: string | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
   recipientEmail: string;
   id?: string | null;
   blockName?: string | null;
@@ -1032,20 +1006,6 @@ export interface ContactBlockSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
-            };
-        id?: T;
-      };
-  socialLinks?:
-    | T
-    | {
-        icon?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
             };
         id?: T;
       };

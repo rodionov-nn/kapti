@@ -1,11 +1,5 @@
 import type { Block } from 'payload'
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
 import { iconOptions } from '@/Footer/config'
 import { link } from '@/fields/link'
 
@@ -25,7 +19,7 @@ export const Contact: Block = {
     {
       name: 'contacts',
       type: 'array',
-      label: 'Контактная информация (с иконками)',
+      label: 'Контактная информация',
       fields: [
         {
           name: 'icon',
@@ -36,27 +30,6 @@ export const Contact: Block = {
         },
         link({
           appearances: false,
-        }),
-      ],
-      admin: {
-        initCollapsed: true,
-      },
-    },
-    {
-      name: 'socialLinks',
-      type: 'array',
-      label: 'Социальные сети',
-      fields: [
-        {
-          name: 'icon',
-          label: 'Иконка',
-          type: 'select',
-          options: iconOptions,
-          required: true,
-        },
-        link({
-          appearances: false,
-          disableLabel: true,
         }),
       ],
       admin: {

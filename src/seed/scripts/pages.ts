@@ -9,11 +9,6 @@ export const seedPages = async (payload: Payload) => {
       where: { slug: { equals: 'home' } },
     })
 
-    if (existingPage.docs.length > 0) {
-      payload.logger.info('✔ Home page already exists.')
-      return
-    }
-
     const mediaRes = await payload.find({
       collection: 'media',
       where: { alt: { equals: 'hero' } },
@@ -37,6 +32,7 @@ export const seedPages = async (payload: Payload) => {
     const homePageData = {
       title: 'Главная',
       slug: 'home',
+      generateSlug: false,
       _status: 'published',
       publishedAt: new Date().toISOString(),
       hero: {
@@ -123,6 +119,43 @@ export const seedPages = async (payload: Payload) => {
             },
           ],
         },
+        {
+          blockType: 'separator',
+          spacing: 'medium',
+          color: 'default',
+        },
+        {
+          blockType: 'contact',
+          title: 'Связаться',
+          recipientEmail: 'rodionov.nmx@gmail.com',
+          contacts: [
+            {
+              icon: 'phone',
+              link: {
+                type: 'custom',
+                url: 'tel:+77083786442',
+                label: '+7 (708) 378-64-42',
+              },
+            },
+            {
+              icon: 'whatsapp',
+              link: {
+                type: 'custom',
+                newTab: true,
+                url: 'https://wa.me/77083786442',
+                label: 'WhatsApp',
+              },
+            },
+            {
+              icon: 'mail',
+              link: {
+                type: 'custom',
+                url: 'mailto:k.kapti@mail.ru',
+                label: 'k.kapti@mail.ru',
+              },
+            },
+          ],
+        },
       ],
       meta: {
         title: 'Натуральные кондитерские изделия для дистрибьютеров',
@@ -130,6 +163,18 @@ export const seedPages = async (payload: Payload) => {
           'Kapti — производитель широкой линейки кондитерских изделий для оптовиков и дистрибьютеров',
         image: mediaId,
       },
+    }
+
+    if (existingPage.docs.length > 0) {
+      await payload.update({
+        collection: 'pages',
+        id: existingPage.docs[0].id,
+        data: homePageData as any,
+        context: { disableRevalidate: true },
+      })
+
+      payload.logger.info('✔ Home page updated successfully!')
+      return
     }
 
     await payload.create({
