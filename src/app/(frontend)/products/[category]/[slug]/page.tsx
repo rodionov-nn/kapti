@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
@@ -8,6 +9,38 @@ interface PageProps {
     category: string
     slug: string
   }>
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug: productSlug } = await params
+  const payload = await getPayload({ config: configPromise })
+
+  const productData = await payload.find({
+    collection: 'products',
+    where: { slug: { equals: productSlug } },
+    limit: 1,
+  })
+
+  const product = productData.docs[0]
+
+  if (!product) {
+    return {
+      title: 'Продукт не найден',
+    }
+  }
+
+  const ogImage =
+    typeof product.image === 'object' && product.image?.url ? [{ url: product.image.url }] : []
+
+  return {
+    title: `${product.name} | Kapti`,
+    description: product.description.substring(0, 160),
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      images: ogImage,
+    },
+  }
 }
 
 export async function generateStaticParams() {
@@ -43,23 +76,19 @@ export default async function ProductPage({ params }: PageProps) {
 
   const product = productData.docs[0]
 
-  if (!product) {
-    notFound()
-  }
+  if (!product) notFound()
 
   const isMatchingCategory =
     typeof product.category === 'object' && product.category?.slug === categorySlug
 
-  if (!isMatchingCategory) {
-    notFound()
-  }
+  if (!isMatchingCategory) notFound()
 
   return (
     <main className="py-24">
       <section className="container">
-        <h1 className="text-center font-bold mb-4">{product.name}</h1>
+        <h1 className="text-center text-4xl font-bold mb-8">{product.name}</h1>
 
-        <div className="relative w-full max-w-6xl mx-auto aspect-2/1 mb-8">
+        <div className="relative w-full max-w-6xl mx-auto aspect-2/1 mb-12">
           <Media
             resource={product.image}
             priority
@@ -68,72 +97,75 @@ export default async function ProductPage({ params }: PageProps) {
           />
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div>
-            <h2 className="text-2xl font-bold mb-2">Описание</h2>
-            <p className="text-lg">{product.description}</p>
-          </div>
+        <div className="max-w-4xl mx-auto space-y-12">
+          <section>
+            <h2 className="text-2xl font-bold mb-4">Описание</h2>
+            <p className="text-lg leading-relaxed text-gray-800">{product.description}</p>
+          </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-8">
               <div>
-                <h3 className="text-xl font-bold mb-2">Характеристики</h3>
-                <ul className="space-y-1">
+                <h3 className="text-xl font-bold mb-4 border-b pb-2">Характеристики</h3>
+                <ul className="space-y-2">
                   <li>
-                    <span className="font-semibold">Вес продукта:</span> {product.weight} г
+                    <span className="font-semibold text-gray-600">Вес:</span> {product.weight} г
                   </li>
                   <li>
-                    <span className="font-semibold">В упаковке:</span> {product.packCount} шт.
+                    <span className="font-semibold text-gray-600">В упаковке:</span>{' '}
+                    {product.packCount} шт.
                   </li>
                   <li>
-                    <span className="font-semibold">Срок хранения:</span> {product.shelfLife}
+                    <span className="font-semibold text-gray-600">Срок хранения:</span>{' '}
+                    {product.shelfLife}
                   </li>
                   <li>
-                    <span className="font-semibold">Условия хранения:</span>{' '}
+                    <span className="font-semibold text-gray-600">Условия:</span>{' '}
                     {product.storageConditions}
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-xl font-bold mb-2">Состав</h3>
-                <p>{product.ingredients}</p>
+                <h3 className="text-xl font-bold mb-4 border-b pb-2">Состав</h3>
+                <p className="leading-snug">{product.ingredients}</p>
                 {product.dietaryInfo && (
-                  <p className="mt-2 text-sm text-gray-600">
-                    <span className="font-semibold">Особенности:</span> {product.dietaryInfo}
-                  </p>
+                  <div className="mt-4 p-3 bg-amber-50 border border-amber-100 rounded-md">
+                    <span className="font-bold text-amber-900">Особенности:</span>{' '}
+                    {product.dietaryInfo}
+                  </div>
                 )}
               </div>
             </div>
 
             <div>
-              <h3 className="text-xl font-bold mb-2">Пищевая ценность (на 100 г)</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border border-gray-300 rounded-lg">
-                  <tbody>
-                    <tr className="border-t border-gray-200">
-                      <td className="px-4 py-2 font-semibold border-r border-gray-200">
-                        Энергетическая ценность
-                      </td>
-                      <td className="px-4 py-2">
-                        {product.nutrition?.calories} кКал / {product.nutrition?.kJ} кДж
-                      </td>
-                    </tr>
-                    <tr className="border-t border-gray-200">
-                      <td className="px-4 py-2 font-semibold border-r border-gray-200">Белки</td>
-                      <td className="px-4 py-2">{product.nutrition?.protein} г</td>
-                    </tr>
-                    <tr className="border-t border-gray-200">
-                      <td className="px-4 py-2 font-semibold border-r border-gray-200">Жиры</td>
-                      <td className="px-4 py-2">{product.nutrition?.fat} г</td>
-                    </tr>
-                    <tr className="border-t border-gray-200">
-                      <td className="px-4 py-2 font-semibold border-r border-gray-200">Углеводы</td>
-                      <td className="px-4 py-2">{product.nutrition?.carbs} г</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <h3 className="text-xl font-bold mb-4 border-b pb-2">Пищевая ценность (на 100 г)</h3>
+              <table className="w-full text-left">
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="py-3 font-medium text-gray-600">Калорийность</td>
+                    <td className="py-3 text-right font-bold">
+                      {product.nutrition?.calories} кКал
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 font-medium text-gray-600">Энергия</td>
+                    <td className="py-3 text-right">{product.nutrition?.kJ} кДж</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 font-medium text-gray-600">Белки</td>
+                    <td className="py-3 text-right">{product.nutrition?.protein} г</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 font-medium text-gray-600">Жиры</td>
+                    <td className="py-3 text-right">{product.nutrition?.fat} г</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 font-medium text-gray-600">Углеводы</td>
+                    <td className="py-3 text-right">{product.nutrition?.carbs} г</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

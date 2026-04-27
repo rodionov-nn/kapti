@@ -4,7 +4,6 @@ import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
@@ -87,7 +86,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 CallToAction,
                 Content,
                 MediaBlock,
-                FormBlock,
                 MediaContent,
                 Separator,
                 CategoriesSelection,

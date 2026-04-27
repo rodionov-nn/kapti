@@ -104,18 +104,22 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         <div
           ref={menuRef}
           className={cn(
-            'lg:hidden flex flex-col items-center justify-center gap-6 transition-[height,opacity] duration-300 ease-in-out overflow-hidden',
-            menuOpen ? 'h-auto py-8 opacity-100' : 'h-0 opacity-0',
+            'lg:hidden grid transition-all duration-300 ease-in-out',
+            menuOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
           )}
         >
-          {navItems.map(({ link }, i) => (
-            <CMSLink
-              key={i}
-              {...link}
-              className="font-semibold text-lg"
-              onClick={() => setMenuOpen(false)}
-            />
-          ))}
+          <div className="overflow-hidden flex flex-col items-center justify-center">
+            <div className="py-8 flex flex-col gap-6 items-center">
+              {navItems.map(({ link }, i) => (
+                <CMSLink
+                  key={i}
+                  {...link}
+                  className="font-semibold text-lg"
+                  onClick={() => setMenuOpen(false)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="border-b border-foreground" />

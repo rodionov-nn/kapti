@@ -4,7 +4,6 @@ import type { Page } from '@/payload-types'
 
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
-import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MediaContentBlock } from '@/blocks/MediaContent/Component'
 import { SeparatorBlock } from '@/blocks/Separator/Component'
@@ -13,7 +12,6 @@ import CategoriesSelectionBlock from './CategoriesSelection/Component'
 const blockComponents = {
   content: ContentBlock,
   cta: CallToActionBlock,
-  formBlock: FormBlock,
   mediaBlock: MediaBlock,
   mediaContent: MediaContentBlock,
   separator: SeparatorBlock,

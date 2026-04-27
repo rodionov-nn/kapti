@@ -3,6 +3,7 @@ import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { ru } from '@payloadcms/translations/languages/ru'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { fileURLToPath } from 'url'
 import { mainSeed } from './seed'
 
@@ -52,6 +53,22 @@ export default buildConfig({
       ],
     },
   },
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.SMTP_USER || '',
+    defaultFromName: 'kapri.ru',
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: 587,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
+        ciphers: 'SSLv3',
+      },
+    },
+  }),
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: postgresAdapter({
