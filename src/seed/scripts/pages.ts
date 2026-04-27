@@ -4,7 +4,6 @@ export const seedPages = async (payload: Payload) => {
   payload.logger.info('Seeding Pages...')
 
   try {
-    // Find existing home page
     const existingPage = await payload.find({
       collection: 'pages',
       where: { slug: { equals: 'home' } },
@@ -15,7 +14,6 @@ export const seedPages = async (payload: Payload) => {
       return
     }
 
-    // Get the hero media
     const mediaRes = await payload.find({
       collection: 'media',
       where: { alt: { equals: 'hero' } },
@@ -25,15 +23,15 @@ export const seedPages = async (payload: Payload) => {
     const mediaId = mediaRes.docs.length > 0 ? mediaRes.docs[0].id : null
 
     if (!mediaId) {
-      payload.logger.warn('⚠ No media found for Hero block. Make sure media is seeded first.')
+      payload.logger.warn('⚠ No media found with alt "hero". Make sure media is seeded first.')
     }
 
-    // Get some categories
     const categoriesRes = await payload.find({
       collection: 'categories',
       limit: 3,
       sort: 'id',
     })
+
     const categoryIds = categoriesRes.docs.map((doc) => doc.id)
 
     const homePageData = {
@@ -52,11 +50,11 @@ export const seedPages = async (payload: Payload) => {
             children: [
               {
                 type: 'heading',
-                direction: 'ltr',
-                format: '',
+                tag: 'h1',
+                direction: 'center',
+                format: 'center',
                 indent: 0,
                 version: 1,
-                tag: 'h1',
                 children: [
                   {
                     type: 'text',
@@ -71,10 +69,12 @@ export const seedPages = async (payload: Payload) => {
               },
               {
                 type: 'paragraph',
-                direction: 'ltr',
-                format: '',
+                direction: 'center',
+                format: 'center',
                 indent: 0,
                 version: 1,
+                textStyle: '',
+                textFormat: 0,
                 children: [
                   {
                     type: 'text',
@@ -127,7 +127,7 @@ export const seedPages = async (payload: Payload) => {
       meta: {
         title: 'Натуральные кондитерские изделия для дистрибьютеров',
         description:
-          'Kapti производитель широкой линейки кондитерских изделий для оптовиков и дистрибьютеров',
+          'Kapti — производитель широкой линейки кондитерских изделий для оптовиков и дистрибьютеров',
         image: mediaId,
       },
     }
