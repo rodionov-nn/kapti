@@ -77,8 +77,8 @@ export const seedGlobals = async (payload: Payload): Promise<void> => {
             icon: 'phone',
             link: {
               type: 'custom',
-              url: 'tel:+77773717749',
-              label: '+7 (777) 371-77-49',
+              url: 'tel:+77083786442',
+              label: '+7 (708) 378-64-42',
               newTab: false,
             },
           },
@@ -97,7 +97,7 @@ export const seedGlobals = async (payload: Payload): Promise<void> => {
             icon: 'whatsapp',
             link: {
               type: 'custom',
-              url: 'https://wa.me/77773717749',
+              url: 'https://wa.me/77083786442',
               label: 'WhatsApp',
               newTab: true,
             },
