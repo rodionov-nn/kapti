@@ -23,6 +23,7 @@ import { formatSlug } from '@/utilities/formatSlug'
 import { MediaContent } from '@/blocks/MediaContent/config'
 import { Separator } from '@/blocks/Separator/config'
 import { CategoriesSelection } from '@/blocks/CategoriesSelection/config'
+import { Contact } from '@/blocks/Contact/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -89,6 +90,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 MediaContent,
                 Separator,
                 CategoriesSelection,
+                Contact,
               ],
               required: true,
               admin: {

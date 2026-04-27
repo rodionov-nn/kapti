@@ -22,9 +22,7 @@ export default async function CategoriesSelectionBlock({ title, selectedCategori
 
   return (
     <section className="container flex flex-col items-center justify-center gap-8 lg:gap-16 text-center py-8 lg:py-16">
-      <h1 id="products" className="scroll-mt-24">
-        {title}
-      </h1>
+      <h1 id="products">{title}</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
         {selectedCategories.map((category: any) => {

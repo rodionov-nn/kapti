@@ -8,6 +8,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MediaContentBlock } from '@/blocks/MediaContent/Component'
 import { SeparatorBlock } from '@/blocks/Separator/Component'
 import CategoriesSelectionBlock from './CategoriesSelection/Component'
+import { ContactBlock } from '@/blocks/Contact/Component'
 
 const blockComponents = {
   content: ContentBlock,
@@ -16,6 +17,7 @@ const blockComponents = {
   mediaContent: MediaContentBlock,
   separator: SeparatorBlock,
   categoriesSelection: CategoriesSelectionBlock,
+  contact: ContactBlock,
 }
 
 export const RenderBlocks: React.FC<{
