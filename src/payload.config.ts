@@ -55,7 +55,7 @@ export default buildConfig({
   },
   email: nodemailerAdapter({
     defaultFromAddress: process.env.SMTP_USER || '',
-    defaultFromName: 'kapri.ru',
+    defaultFromName: 'kapti.ru',
     transportOptions: {
       host: process.env.SMTP_HOST,
       port: 587,

@@ -36,7 +36,7 @@ export const Users: CollectionConfig = {
           <p>Чтобы сбросить пароль для учетной записи на <b>kapti.ru</b>, нажмите на кнопку ниже:</p>
           <div style="text-align: center; margin: 30px 0;">
             <a href="${resetPasswordURL}" 
-               style="background-color: #000; color: #fff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
+               style="background-color: #171717; color: #ededed; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
               Сбросить пароль
             </a>
           </div>
@@ -47,7 +47,7 @@ export const Users: CollectionConfig = {
         </div>
       `
       },
-      generateEmailSubject: () => 'Сброс пароля | kapti.ru',
+      generateEmailSubject: () => 'Сброс пароля | kapti',
     },
   },
   fields: [
