@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Media } from '@/components/Media'
 
 interface PageProps {
@@ -70,6 +71,7 @@ export default async function ProductPage({ params }: PageProps) {
 
   const productData = await payload.find({
     collection: 'products',
+    depth: 1,
     where: { slug: { equals: productSlug } },
     limit: 1,
   })
@@ -83,9 +85,19 @@ export default async function ProductPage({ params }: PageProps) {
 
   if (!isMatchingCategory) notFound()
 
+  const categoryName = typeof product.category === 'object' ? product.category.name : categorySlug
+
   return (
     <main className="py-24">
       <section className="container">
+        <Breadcrumbs
+          items={[
+            { label: 'Главная', href: '/' },
+            { label: 'Продукты', href: '/products' },
+            { label: categoryName, href: `/products/${categorySlug}` },
+            { label: product.name },
+          ]}
+        />
         <h1 className="text-center text-4xl font-bold mb-8">{product.name}</h1>
 
         <div className="relative w-full max-w-6xl mx-auto aspect-2/1 mb-12">

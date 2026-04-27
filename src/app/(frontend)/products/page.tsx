@@ -3,6 +3,7 @@ import type { Metadata } from 'next/types'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import Link from 'next/link'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Media } from '@/components/Media'
 
 export const dynamic = 'force-static'
@@ -30,6 +31,10 @@ export default async function Page() {
   return (
     <main className="pt-24 pb-24">
       <section className="container text-center">
+        <Breadcrumbs
+          className="justify-center"
+          items={[{ label: 'Главная', href: '/' }, { label: 'Продукты' }]}
+        />
         <h1>Наши продукты</h1>
         {categories.map((category) => {
           const categoryProducts = allProducts.filter((product) => {

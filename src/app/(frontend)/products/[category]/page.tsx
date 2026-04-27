@@ -2,6 +2,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Media } from '@/components/Media'
 
 interface PageProps {
@@ -54,6 +55,13 @@ export default async function CategoryPage({ params }: PageProps) {
   return (
     <main className="py-24">
       <section className="container">
+        <Breadcrumbs
+          items={[
+            { label: 'Главная', href: '/' },
+            { label: 'Продукты', href: '/products' },
+            { label: category.name },
+          ]}
+        />
         <h1 className="text-center mb-8">{category.name}</h1>
         {category.description && (
           <p className="text-center text-xl mb-12 -mt-4">{category.description}</p>
