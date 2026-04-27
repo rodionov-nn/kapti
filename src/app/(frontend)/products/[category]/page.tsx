@@ -1,9 +1,8 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { Media } from '@/components/Media'
+import { ProductGrid } from '@/components/ProductGrid'
 
 interface PageProps {
   params: Promise<{
@@ -53,7 +52,7 @@ export default async function CategoryPage({ params }: PageProps) {
   const products = productsRes.docs
 
   return (
-    <main className="py-24">
+    <main className="py-8">
       <section className="container">
         <Breadcrumbs
           items={[
@@ -67,21 +66,7 @@ export default async function CategoryPage({ params }: PageProps) {
           <p className="text-center text-xl mb-12 -mt-4">{category.description}</p>
         )}
 
-        {products.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {products.map((product) => (
-              <Link
-                key={product.id}
-                href={`/products/${categorySlug}/${product.slug}`}
-                className="relative aspect-2/1 w-full select-none hover:scale-105 hover:rotate-2 transition-transform cursor-pointer"
-              >
-                <Media resource={product.image} priority fill imgClassName="object-cover" />
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <p className="text-center text-gray-500">В этой категории пока нет товаров.</p>
-        )}
+        <ProductGrid products={products} categorySlug={categorySlug} />
       </section>
     </main>
   )

@@ -88,7 +88,7 @@ export default async function ProductPage({ params }: PageProps) {
   const categoryName = typeof product.category === 'object' ? product.category.name : categorySlug
 
   return (
-    <main className="py-24">
+    <main className="py-8">
       <section className="container">
         <Breadcrumbs
           items={[

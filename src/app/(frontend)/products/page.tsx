@@ -2,9 +2,8 @@ import type { Metadata } from 'next/types'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import Link from 'next/link'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { Media } from '@/components/Media'
+import { ProductGrid } from '@/components/ProductGrid'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -29,13 +28,10 @@ export default async function Page() {
   const allProducts = productsRes.docs
 
   return (
-    <main className="pt-24 pb-24">
+    <main className="py-8">
       <section className="container text-center">
-        <Breadcrumbs
-          className="justify-center"
-          items={[{ label: 'Главная', href: '/' }, { label: 'Продукты' }]}
-        />
-        <h1>Наши продукты</h1>
+        <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Продукты' }]} />
+        <h1 className="mb-4">Наши продукты</h1>
         {categories.map((category) => {
           const categoryProducts = allProducts.filter((product) => {
             const pCat = product.category
@@ -44,27 +40,13 @@ export default async function Page() {
           })
 
           return (
-            <section key={category.id} id={category.slug} className="mb-20 scroll-mt-28">
+            <section key={category.id} id={category.slug} className="mb-20">
               <div className="mb-8 pb-4">
                 <h2>{category.name}</h2>
                 {category.description && <p className="mt-4 text-xl">{category.description}</p>}
               </div>
 
-              {categoryProducts.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {categoryProducts.map((product) => (
-                    <Link
-                      key={product.id}
-                      href={`/products/${category.slug}/${product.slug}`}
-                      className="relative aspect-2/1 w-full select-none hover:scale-105 hover:rotate-5 cursor-pointer"
-                    >
-                      <Media resource={product.image} priority fill imgClassName="object-cover" />
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-gray-500 italic">В этой категории пока нет товаров.</p>
-              )}
+              <ProductGrid products={categoryProducts} categorySlug={category.slug} />
             </section>
           )
         })}
