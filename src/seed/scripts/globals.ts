@@ -90,7 +90,6 @@ export const seedGlobals = async (payload: Payload): Promise<void> => {
             link: {
               type: 'custom',
               url: 'https://wa.me/77083786442',
-              label: 'WhatsApp',
               newTab: true,
             },
           },
@@ -99,7 +98,6 @@ export const seedGlobals = async (payload: Payload): Promise<void> => {
             link: {
               type: 'custom',
               url: 'https://www.youtube.com/@kaptikz',
-              label: 'YouTube',
               newTab: true,
             },
           },
@@ -108,7 +106,6 @@ export const seedGlobals = async (payload: Payload): Promise<void> => {
             link: {
               type: 'custom',
               url: 'https://www.instagram.com/kapti__kz',
-              label: 'Instagram',
               newTab: true,
             },
           },

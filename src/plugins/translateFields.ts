@@ -54,16 +54,19 @@ const dict = {
     custom: 'Произвольный URL',
     message: 'Текстовое сообщение',
     redirect: 'Перенаправление',
-  }
+  },
 }
 
 export function translateFields(fields: Field[]): Field[] {
   return fields.map((field) => {
-    // @ts-expect-error
     const newField: any = { ...field }
 
     // Translate field label based on its name
-    if ('name' in newField && typeof newField.name === 'string' && dict.labels[newField.name as keyof typeof dict.labels]) {
+    if (
+      'name' in newField &&
+      typeof newField.name === 'string' &&
+      dict.labels[newField.name as keyof typeof dict.labels]
+    ) {
       newField.label = dict.labels[newField.name as keyof typeof dict.labels]
     }
 
@@ -75,7 +78,10 @@ export function translateFields(fields: Field[]): Field[] {
     }
 
     // Translate options if it's a radio or select
-    if ((newField.type === 'radio' || newField.type === 'select') && Array.isArray(newField.options)) {
+    if (
+      (newField.type === 'radio' || newField.type === 'select') &&
+      Array.isArray(newField.options)
+    ) {
       newField.options = newField.options.map((opt: any) => {
         if (typeof opt === 'string') return opt
         if (dict.options[opt.value as keyof typeof dict.options]) {
@@ -97,7 +103,7 @@ export function translateFields(fields: Field[]): Field[] {
         if (dict.blocks[block.slug as keyof typeof dict.blocks]) {
           newBlock.labels = {
             singular: dict.blocks[block.slug as keyof typeof dict.blocks],
-            plural: dict.blocks[block.slug as keyof typeof dict.blocks]
+            plural: dict.blocks[block.slug as keyof typeof dict.blocks],
           }
         }
         if (Array.isArray(block.fields)) {
